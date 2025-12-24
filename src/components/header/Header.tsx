@@ -12,7 +12,7 @@ function Header() {
             height={20}
             className="mr-4"
           />
-          <ul className="text-white flex gap-8 font-bold px-4 py-2 ">
+          <ul className="text-white flex gap-8 font-bold px-4 py-2 cursor-pointer">
             <li>Movies</li>
             <li>Tv Shows</li>
             <li>People</li>
@@ -20,7 +20,7 @@ function Header() {
           </ul>
         </div>
         <div className="icons">
-          <ul className="text-white flex gap-8 font-bold px-4 py-2 ">
+          <ul className="text-white flex gap-8 font-bold px-4 py-2 cursor-pointer ">
             <li>
               <Plus
                 size={"22px"}
