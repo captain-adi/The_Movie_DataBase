@@ -129,4 +129,7 @@
     padding: 0 40px;
     margin: 0 auto;
   }
+  .gradient-bg {
+    background: linear-gradient(to right, #c0fecf 0, #1ed5a9 100%);
+  }
 }
