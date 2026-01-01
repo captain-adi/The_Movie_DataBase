@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Content from "../content/Content";
 import Welcome from "../welcome/Welcome";
-import { useFetchTrending } from "@/hooks/hooks";
+import { useFetchFreeToWatch, useFetchTrending } from "@/hooks/hooks";
 
 function Hero() {
   const [time, setTime] = useState("day");
+  const [freeToWatchType, setFreeToWatchType] = useState("movie");
   const { data } = useFetchTrending(time);
-  console.log("data : ", data);
+  const { data: panelData } = useFetchFreeToWatch(freeToWatchType);
   return (
     <section>
       <Welcome />
@@ -19,6 +20,16 @@ function Hero() {
           { label: "This Week", value: "week" },
         ]}
         data={data}
+      />
+      <Content
+        value={freeToWatchType}
+        onChange={setFreeToWatchType}
+        title="Free To Watch"
+        selector={[
+          { label: "Movie", value: "movie" },
+          { label: "Tv", value: "tv" },
+        ]}
+        data={panelData}
       />
     </section>
   );
