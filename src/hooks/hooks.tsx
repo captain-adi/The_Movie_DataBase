@@ -1,11 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchFromTMDB } from "../api/confige";
-import type {
-  IMovie,
-  IScroller,
-  ITmdbResponse,
-  ITrending,
-} from "@/types/types";
+import type { IMovie, IScroller, ITmdbResponse } from "@/types/types";
 
 export const useFetchMovie = () => {
   return useQuery<ITmdbResponse<IMovie>>({
@@ -16,9 +11,9 @@ export const useFetchMovie = () => {
 };
 
 export const useFetchTrending = (time: string) => {
-  return useQuery<ITmdbResponse<ITrending>>({
+  return useQuery<ITmdbResponse<IScroller>>({
     queryKey: ["trending", time],
-    queryFn: (): Promise<ITmdbResponse<ITrending>> =>
+    queryFn: (): Promise<ITmdbResponse<IScroller>> =>
       fetchFromTMDB(`/trending/all/${time}`, { language: "en-US" }),
   });
 };
