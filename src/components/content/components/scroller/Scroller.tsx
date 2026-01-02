@@ -1,7 +1,7 @@
-import type { ITmdbBase } from "@/types/types";
+import type { IScroller } from "@/types/types";
 import getTmdbImage from "@/utils/getTmdbImages";
 
-function Scroller<T extends ITmdbBase>({ data }: { data: T[] }) {
+function Scroller<T extends IScroller>({ data }: { data: T[] | undefined }) {
   return (
     <div className="flex flex-nowrap overflow-x-auto w-full gap-4 py-4  my-5">
       {data?.map((item, index) => (
