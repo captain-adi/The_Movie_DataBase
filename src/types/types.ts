@@ -51,7 +51,7 @@ export interface IScroller {
   popularity: number;
   poster_path: string;
   release_date: string;
-
+  original_name?: string;
   title: string;
   video: boolean;
   vote_average: number;
