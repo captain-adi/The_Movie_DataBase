@@ -11,8 +11,10 @@ function Hero() {
   const { data: panelData } = useFetchFreeToWatch(freeToWatchType);
   return (
     <section>
-      <Searchbar />
-      <Welcome />
+      <div>
+        <Searchbar />
+        <Welcome />
+      </div>
       <Content
         value={time}
         onChange={setTime}

@@ -25,3 +25,11 @@ export const useFetchFreeToWatch = (type: string) => {
       fetchFromTMDB(`/${type}/popular`, { language: "en-US", page: 1 }),
   });
 };
+
+export const useFetchSearchResults = (query: string) => {
+  return useQuery<ITmdbResponse<IScroller>>({
+    queryKey: ["searchResults", query],
+    queryFn: (): Promise<ITmdbResponse<IScroller>> =>
+      fetchFromTMDB("/search/multi", { language: "en-US", query, page: 1 }),
+  });
+};

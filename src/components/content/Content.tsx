@@ -11,7 +11,6 @@ function Content<T extends IScroller>({
   data,
 }: IContentProps<T>) {
   const result = data?.results;
-  console.log("result ", result);
   return (
     <section className="py-7 ">
       <div
