@@ -3,6 +3,7 @@ import Content from "../content/Content";
 import Welcome from "../welcome/Welcome";
 import { useFetchFreeToWatch, useFetchTrending } from "@/hooks/hooks";
 import Searchbar from "./components/searchbar/Searchbar";
+import JoinToday from "./components/join/JoinToday";
 
 function Hero() {
   const [time, setTime] = useState("day");
@@ -35,6 +36,8 @@ function Hero() {
         ]}
         data={panelData}
       />
+
+      <JoinToday />
     </section>
   );
 }
