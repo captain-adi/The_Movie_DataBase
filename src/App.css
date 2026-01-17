@@ -135,6 +135,11 @@
     padding: 0 40px;
     margin: 0 auto;
   }
+  .width-stack-xy {
+    max-width: 1300px;
+    padding: 30px 40px;
+    margin: 0 auto;
+  }
   .gradient-bg {
     background: linear-gradient(to right, #c0fecf 0, #1ed5a9 100%);
   }

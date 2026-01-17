@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchFromTMDB } from "../api/confige";
 import type { IMovie, IScroller, ITmdbResponse } from "@/types/types";
-import type { ITvDetails } from "@/pages/detailedpage/type";
+import type { IMoveieDetails, ITvDetails } from "@/pages/detailedpage/type";
 
 export const useFetchMovie = () => {
   return useQuery<ITmdbResponse<IMovie>>({
@@ -35,10 +35,17 @@ export const useFetchSearchResults = (query: string) => {
   });
 };
 
-export const useFetchDetails = (type: string, id: string) => {
-  return useQuery<ITvDetails>({
+type MediaType = "movie" | "tv";
+
+type MediaResponseMap = {
+  movie: IMoveieDetails;
+  tv: ITvDetails;
+};
+
+export const useFetchDetails = <T extends MediaType>(type: T, id: string) => {
+  return useQuery<MediaResponseMap[T]>({
     queryKey: ["details", type, id],
-    queryFn: (): Promise<ITvDetails> =>
-      fetchFromTMDB(`/${type}/${id}`, { language: "en-US" }),
+    queryFn: () => fetchFromTMDB(`/${type}/${id}`, { language: "en-US" }),
+    enabled: !!id,
   });
 };

@@ -1,37 +1,65 @@
 import { Logs, Heart, Bookmark, Play } from "lucide-react";
 import getTmdbImage from "@/utils/getTmdbImages";
 import { format } from "date-fns";
-import type { ITvDetails } from "../../type";
-function DetailedOverview({ detailedData }: { detailedData: ITvDetails }) {
+import type { IMoveieDetails, ITvDetails } from "../../type";
+
+type DetailedOverviewProps =
+  | {
+      type: "movie";
+      detailedData: IMoveieDetails;
+    }
+  | {
+      type: "tv";
+      detailedData: ITvDetails;
+    };
+
+function DetailedOverview({ type, detailedData }: DetailedOverviewProps) {
   const averageVote = (vote: number | undefined) => {
     const value = Math.ceil((vote as number) * 10);
     return value;
   };
+
   return (
     <div className=" py-10 bg-center bg-no-repeat bg-red-500 ">
       <section className="width-stack  flex">
         <div className=" ">
           <img
             src={getTmdbImage(detailedData?.poster_path || "")}
-            alt=""
+            alt={
+              type === "movie"
+                ? detailedData.original_title || detailedData.title
+                : detailedData.original_name || detailedData.name
+            }
             className="rounded-sm min-w-75 min-h-127.5"
           />
         </div>
         <div className="pl-10 flex flex-col justify-center text-white">
           <div>
             <h2 className="text-4xl font-semibold">
-              {detailedData?.original_name || detailedData?.name}
+              {type === "movie"
+                ? detailedData.original_title || detailedData.title
+                : detailedData.original_name || detailedData.name}
               <span className="opacity-70 text-normal font-medium ml-2">
-                ({format(new Date(detailedData?.first_air_date || ""), "yyyy")})
+                (
+                {format(
+                  new Date(
+                    type === "movie"
+                      ? detailedData.release_date
+                      : detailedData.first_air_date
+                  ),
+                  "yyyy"
+                )}
+                )
               </span>
             </h2>
             <div className="flex gap-2">
-              <p className="border px-0.5 py-0 border-white text-muted-foreground font-semibold">
+              <p className="border px-1 rounded-xs py-0 border-[rgba(255,255,255,0.6)] text-[rgba(255,255,255,0.6)] font-semibold">
                 U/A 16+
               </p>
               <p>
                 {detailedData?.genres?.map((genre) => genre.name).join(", ")}
               </p>
+              {type === "movie" && <p>{detailedData.runtime}</p>}
             </div>
           </div>
           <div className="mt-6 flex items-center ">
@@ -70,21 +98,23 @@ function DetailedOverview({ detailedData }: { detailedData: ITvDetails }) {
             </li>
           </ul>
           <div>
-            <h3 className="text-xl  italic font-normal mb-5 text-muted-foreground">
+            <h3 className="text-xl  italic font-normal mb-5 text-[rgba(255,255,255,0.7)]">
               {detailedData.tagline}
             </h3>
             <h2 className="my-2 text-xl font-semibold">Overview</h2>
             <p className="text-[16px] font-normal">{detailedData.overview}</p>
-            <ol className="mt-5 flex ">
-              {detailedData.created_by.map((creator) => (
-                <li key={creator.id} className="flex flex-col min-w-80.75">
-                  <span className="font-semibold border-b text-sm w-fit">
-                    {creator.name}
-                  </span>
-                  <span className="text-xs mt-1">Creator</span>
-                </li>
-              ))}
-            </ol>
+            {type === "tv" && detailedData.created_by && (
+              <ol className="mt-5 flex ">
+                {detailedData.created_by.map((creator) => (
+                  <li key={creator.id} className="flex flex-col min-w-80.75">
+                    <span className="font-semibold border-b text-sm w-fit">
+                      {creator.name}
+                    </span>
+                    <span className="text-xs mt-1">Creator</span>
+                  </li>
+                ))}
+              </ol>
+            )}
           </div>
         </div>
       </section>
