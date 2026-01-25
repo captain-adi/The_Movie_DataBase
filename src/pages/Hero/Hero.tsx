@@ -9,8 +9,10 @@ import JoinToday from "./components/join/JoinToday";
 function Hero() {
   const [time, setTime] = useState("day");
   const [freeToWatchType, setFreeToWatchType] = useState("movie");
-  const { data } = useFetchTrending(time);
-  const { data: panelData, isLoading } = useFetchFreeToWatch(freeToWatchType);
+  const { data: trendingData, isLoading: trendingLoading } =
+    useFetchTrending(time);
+  const { data: panelData, isLoading: freeToWatchLoading } =
+    useFetchFreeToWatch(freeToWatchType);
   return (
     <section>
       <div>
@@ -18,6 +20,7 @@ function Hero() {
         <Welcome />
       </div>
       <Content
+        isLoading={trendingLoading}
         value={time}
         onChange={setTime}
         title="Trending"
@@ -25,10 +28,10 @@ function Hero() {
           { label: "Today", value: "day" },
           { label: "This Week", value: "week" },
         ]}
-        data={data}
+        data={trendingData}
       />
       <Content
-        isLoading={isLoading}
+        isLoading={freeToWatchLoading}
         value={freeToWatchType}
         onChange={setFreeToWatchType}
         title="Free To Watch"
