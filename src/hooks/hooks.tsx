@@ -37,7 +37,11 @@ export const useFetchSearchResults = (query: string) => {
 
 type TMDBType = "movie" | "tv" | "person";
 
-type DetailedData = { movie: IMovieDetails; tv: ITvDetails; person: unknown };
+type DetailedData = {
+  movie: IMovieDetails;
+  tv: ITvDetails;
+  person: IPersonDetails;
+};
 export function useFetchDetails<T extends TMDBType>(type: T, id?: string) {
   return useQuery<DetailedData[T]>({
     queryKey: ["details", type, id],
@@ -49,6 +53,11 @@ export function useFetchDetails<T extends TMDBType>(type: T, id?: string) {
 
 // hook to fetch credits
 import type { ICreditsResponse } from "@/pages/detailedpage/components/contentWrapper/components/seriesCast/type";
+import type {
+  IExternalIDs,
+  IPersonCombinedCredit,
+  IPersonDetails,
+} from "@/pages/personDetailes/type";
 
 type TMDBMediaType = "movie" | "tv";
 
@@ -61,5 +70,26 @@ export function useFetchCredits(type: TMDBMediaType, id?: string) {
       }),
     enabled: !!id,
     staleTime: 1000 * 60 * 10, // 10 min cache
+  });
+}
+
+export function useFetchExternalIDs(type: TMDBType, id?: string) {
+  return useQuery({
+    queryKey: ["externalIDs", type, id],
+    queryFn: () => fetchFromTMDB<IExternalIDs>(`/${type}/${id}/external_ids`),
+    enabled: !!id,
+    staleTime: 1000 * 60 * 60, // 1 hour cache
+  });
+}
+
+export function useFetchPersonCombinedCredits(id?: string) {
+  return useQuery<IPersonCombinedCredit>({
+    queryKey: ["personCombinedCredits", id],
+    queryFn: () =>
+      fetchFromTMDB(`/person/${id}/combined_credits`, {
+        language: "en-US",
+      }),
+    enabled: !!id,
+    staleTime: 1000 * 60 * 30, // 30 min cache
   });
 }
