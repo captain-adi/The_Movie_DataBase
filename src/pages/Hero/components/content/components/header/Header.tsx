@@ -1,3 +1,4 @@
+import { memo } from "react";
 import type { IHeader } from "../../type";
 
 function Header({ title, selector, value, onChange }: IHeader) {
@@ -23,4 +24,4 @@ function Header({ title, selector, value, onChange }: IHeader) {
   );
 }
 
-export default Header;
+export default memo(Header);

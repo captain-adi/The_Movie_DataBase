@@ -20,7 +20,7 @@ function Searchbar() {
       { name: "in TV Shows", icon: Tv, value: "tv" },
       { name: "in People", icon: User, value: "person" },
     ],
-    []
+    [],
   );
   const [searchInput, setSearchInput] = useState("");
   const searchValue = useDebounce(searchInput, 1000);

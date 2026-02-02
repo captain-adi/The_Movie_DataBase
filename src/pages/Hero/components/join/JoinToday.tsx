@@ -1,17 +1,22 @@
 import { Button } from "@/components/ui/button";
+import { memo } from "react";
+
+const benefits = [
+  "Enjoy TMDB ad free",
+  "Maintain a personal watchlist",
+  "Filter by your subscribed streaming services and find something to watch",
+  "Log the movies and TV shows you've seen",
+  "Build custom lists",
+  "Contribute to and improve our database",
+];
 
 const JoinToday = () => {
-  const benefits = [
-    "Enjoy TMDB ad free",
-    "Maintain a personal watchlist",
-    "Filter by your subscribed streaming services and find something to watch",
-    "Log the movies and TV shows you've seen",
-    "Build custom lists",
-    "Contribute to and improve our database",
-  ];
-
+  const bgimage =
+    "https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,190235,ad47dd)/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg";
   return (
-    <section className="bg-[url('https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,190235,ad47dd)/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg')]  bg-cover bg-center bg-no-repeat   ">
+    <section
+      className={`bg-[url('${bgimage}')]  bg-cover bg-center bg-no-repeat   `}
+    >
       <div className="width-stack-xy ">
         <div className="">
           <h2 className="text-2xl font-bold md:text-3xl text-white">
@@ -50,4 +55,4 @@ const JoinToday = () => {
   );
 };
 
-export default JoinToday;
+export default memo(JoinToday);
