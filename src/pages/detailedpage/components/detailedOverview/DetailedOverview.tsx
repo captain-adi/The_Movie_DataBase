@@ -6,11 +6,11 @@ import type { IMovieDetails, ITvDetails } from "../../type";
 type DetailedOverviewProps =
   | {
       type: "movie";
-      detailedData: IMovieDetails;
+      detailedData: IMovieDetails | undefined;
     }
   | {
       type: "tv";
-      detailedData: ITvDetails;
+      detailedData: ITvDetails | undefined;
     };
 
 function DetailedOverview({ type, detailedData }: DetailedOverviewProps) {
@@ -21,12 +21,13 @@ function DetailedOverview({ type, detailedData }: DetailedOverviewProps) {
 
   const title =
     type === "movie"
-      ? detailedData.original_title || detailedData.title
-      : detailedData.original_name || detailedData.name;
+      ? detailedData?.original_title || detailedData?.title
+      : detailedData?.original_name || detailedData?.name;
 
   const releaseDate =
-    type === "movie" ? detailedData.release_date : detailedData.first_air_date;
-
+    type === "movie"
+      ? detailedData?.release_date
+      : detailedData?.first_air_date;
   return (
     <div className="py-10 bg-center bg-no-repeat bg-red-500">
       <section className="width-stack flex">
@@ -46,7 +47,7 @@ function DetailedOverview({ type, detailedData }: DetailedOverviewProps) {
             <h2 className="text-4xl font-semibold">
               {title}
               <span className="opacity-70 text-normal font-medium ml-2">
-                ({format(new Date(releaseDate), "yyyy")})
+                ({format(new Date(releaseDate || ""), "yyyy")})
               </span>
             </h2>
 
@@ -58,7 +59,7 @@ function DetailedOverview({ type, detailedData }: DetailedOverviewProps) {
               <p>
                 {detailedData?.genres?.map((genre) => genre.name).join(", ")}
               </p>
-              {type === "movie" && <p>{detailedData.runtime} min</p>}
+              {type === "movie" && <p>{detailedData?.runtime} min</p>}
             </div>
           </div>
 
@@ -101,15 +102,15 @@ function DetailedOverview({ type, detailedData }: DetailedOverviewProps) {
           {/* Description */}
           <div>
             <h3 className="text-xl italic font-normal mb-5 text-[rgba(255,255,255,0.7)]">
-              {detailedData.tagline}
+              {detailedData?.tagline}
             </h3>
             <h2 className="my-2 text-xl font-semibold">Overview</h2>
-            <p className="text-[16px] font-normal">{detailedData.overview}</p>
+            <p className="text-[16px] font-normal">{detailedData?.overview}</p>
 
             {/* TV Show Creators */}
-            {type === "tv" && detailedData.created_by && (
+            {type === "tv" && detailedData?.created_by && (
               <ol className="mt-5 flex">
-                {detailedData.created_by.map((creator) => (
+                {detailedData?.created_by.map((creator) => (
                   <li key={creator.id} className="flex flex-col min-w-80.75">
                     <span className="font-semibold border-b text-sm w-fit">
                       {creator.name}
