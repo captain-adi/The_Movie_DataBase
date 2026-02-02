@@ -1,31 +1,29 @@
 import {
   Command,
-  CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandList,
   CommandItem,
 } from "@/components/ui/command";
 import { useFetchSearchResults } from "@/hooks/hooks";
-// import type { IScroller } from "@/types/types";
 import useDebounce from "@/utils/useDebounce";
-import { Tv, User, Film } from "lucide-react";
-import { memo, useMemo, useState } from "react";
+// import { Tv, User, Film } from "lucide-react";
+import { memo, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Searchbar() {
-  const commandItemData = useMemo(
-    () => [
-      { name: "in Movies", icon: Film, value: "movie" },
-      { name: "in TV Shows", icon: Tv, value: "tv" },
-      { name: "in People", icon: User, value: "person" },
-    ],
-    [],
-  );
+  // const commandItemData = useMemo(
+  //   () => [
+  //     { name: "in Movies", icon: Film, value: "movie" },
+  //     { name: "in TV Shows", icon: Tv, value: "tv" },
+  //     { name: "in People", icon: User, value: "person" },
+  //   ],
+  //   [],
+  // );
   const [searchInput, setSearchInput] = useState("");
   const searchValue = useDebounce(searchInput, 1000);
   const { data, isLoading } = useFetchSearchResults(searchValue);
-
+  console.log(data);
   return (
     <section className="py-3">
       <Command className="width-stack relative">
@@ -36,40 +34,58 @@ function Searchbar() {
         />
 
         <CommandList>
-          {isLoading && <div className="p-3 text-sm">Loading...</div>}
-          {!isLoading && data?.results?.length === 0 && (
-            <CommandEmpty>No results found.</CommandEmpty>
+          {isLoading && searchValue && (
+            <div className="p-3 text-sm">Searching...</div>
           )}
-          {searchInput && (
+
+          {!isLoading && searchValue && data?.results?.length === 0 && (
+            <div className="p-3 text-sm">No results found...</div>
+          )}
+
+          {/* Search shortcut links */}
+          {/* {searchInput && (
             <CommandGroup className="p-0">
               {commandItemData.map((item) => (
-                <Link
-                  to={{
-                    pathname: `/search/${item.value}`,
-                    search: `?query=${searchInput}`,
-                  }}
-                  key={item.name}
-                >
-                  <CommandItem key={item.name} className="border-t gap-2">
+                <CommandItem key={item.value} asChild>
+                  <Link
+                    to={{
+                      pathname: `/search/${item.value}`,
+                      search: `?query=${encodeURIComponent(searchInput)}`,
+                    }}
+                    className="flex gap-2"
+                  >
                     <item.icon className="h-4 w-4" />
                     <span className="font-semibold">{searchInput}</span>
                     {item.name}
-                  </CommandItem>
-                </Link>
+                  </Link>
+                </CommandItem>
               ))}
             </CommandGroup>
-          )}
+          )} */}
 
+          {/* Search results */}
           {data?.results && data.results.length > 0 && (
             <CommandGroup className="p-0">
               {data.results.map((item) => (
                 <CommandItem
                   key={item.id}
+                  asChild
                   value={item.title || item.name || item.original_title}
                   className="border-t"
                 >
-                  {item.title || item.name}
-                  {item.original_name && ` (${item.original_name})`}
+                  <Link
+                    to={
+                      item.media_type === "person"
+                        ? `/person/${item.id}`
+                        : `/details/${item.media_type || "movie"}/${item.id}`
+                    }
+                    className="block w-full"
+                  >
+                    {item.title || item.name}
+                    {item.original_name && ` (${item.original_name})`}
+                    {item.release_date &&
+                      ` - ${new Date(item.release_date).getFullYear()}`}
+                  </Link>
                 </CommandItem>
               ))}
             </CommandGroup>
