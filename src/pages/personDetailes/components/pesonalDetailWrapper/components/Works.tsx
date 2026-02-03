@@ -6,7 +6,6 @@ function Works({
 }: {
   combinedCredits?: IPersonCombinedCredit;
 }) {
-  console.log("combinedCredits : ", combinedCredits);
   return (
     <section className="w-full">
       {/* Header */}

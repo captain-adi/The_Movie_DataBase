@@ -9,7 +9,6 @@ function About({
   data: IPersonDetails | undefined;
   externalIDs: IExternalIDs | undefined;
 }) {
-  console.log(externalIDs);
   return (
     <div className="flex  flex-col">
       <div className="flex gap-4 mb-6">

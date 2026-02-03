@@ -23,7 +23,6 @@ function Searchbar() {
   const [searchInput, setSearchInput] = useState("");
   const searchValue = useDebounce(searchInput, 1000);
   const { data, isLoading } = useFetchSearchResults(searchValue);
-  console.log(data);
   return (
     <section className="py-3">
       <Command className="width-stack relative">

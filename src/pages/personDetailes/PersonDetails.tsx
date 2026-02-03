@@ -7,7 +7,6 @@ function PersonDetails() {
   const { id } = useParams<{ id: string }>();
   const { data, isLoading } = useFetchDetails("person", id);
   const { data: externalIDs } = useFetchExternalIDs("person", id);
-  console.log("data , ", data);
   if (isLoading) {
     return <LoadingDialog open={isLoading} />;
   }

@@ -3,7 +3,6 @@ import Search from "./components/Search";
 import welcomeImage from "/public/images/home.webp";
 function Welcome() {
   const [searchInput, setSearchInput] = useState("");
-  console.log(searchInput);
   return (
     <section
       className="h-96 bg-gray-500"
