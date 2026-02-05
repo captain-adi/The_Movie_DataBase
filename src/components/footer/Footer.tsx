@@ -1,3 +1,4 @@
+import { memo } from "react";
 import CommunityButton from "./components/CommunityButton";
 import FooterLogo from "./components/FooterLogo";
 import { footerSections, type FooterItem } from "./data/footerdata";
@@ -31,4 +32,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default memo(Footer);

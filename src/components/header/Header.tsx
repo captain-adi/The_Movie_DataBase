@@ -1,5 +1,7 @@
+import { memo } from "react";
 import { Plus, Search } from "lucide-react";
 import logo from "../../../public/images/tmdb_logo.svg";
+
 function Header() {
   return (
     <header className="w-full bg-[var(--primary-color)]  p-4">
@@ -37,4 +39,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default memo(Header);
