@@ -1,8 +1,7 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import Search from "./components/Search";
 import welcomeImage from "/public/images/home.webp";
 function Welcome() {
-  const [searchInput, setSearchInput] = useState("");
   return (
     <section
       className="h-96 bg-gray-500"
@@ -17,7 +16,7 @@ function Welcome() {
         <h1 className="text-[2em] font-semibold">
           Million of movies,Tv shows and people to discover , Explore now
         </h1>
-        <Search setSearchInput={setSearchInput} />
+        <Search />
       </div>
     </section>
   );

@@ -27,11 +27,15 @@ export const useFetchFreeToWatch = (type: string) => {
   });
 };
 
-export const useFetchSearchResults = (query: string) => {
+export const useFetchSearchResults = (query: string, page?: number) => {
   return useQuery<ITmdbResponse<IScroller>>({
-    queryKey: ["searchResults", query],
+    queryKey: ["searchResults", query, page],
     queryFn: (): Promise<ITmdbResponse<IScroller>> =>
-      fetchFromTMDB("/search/multi", { language: "en-US", query, page: 1 }),
+      fetchFromTMDB("/search/multi", {
+        language: "en-US",
+        query,
+        page: page || 1,
+      }),
   });
 };
 

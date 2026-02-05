@@ -58,7 +58,7 @@ const router = createBrowserRouter([
       {
         path: "/search",
         element: (
-          <Suspense fallback={<div>Loading ....</div>}>
+          <Suspense fallback={<LoadingDialog open={true} />}>
             <SearchResult />
           </Suspense>
         ),
