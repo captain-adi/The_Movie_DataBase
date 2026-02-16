@@ -1,4 +1,5 @@
 import type { ICreditsResponse } from "@/pages/detailedpage/components/contentWrapper/components/seriesCast/type";
+import { Link } from "react-router-dom";
 
 function CrewGroup({
   title,
@@ -24,9 +25,11 @@ function CrewGroup({
             />
 
             <div>
-              <p className="font-semibold text-sm leading-tight">
-                {person.name}
-              </p>
+              <Link to={`/person/${person.id}`}>
+                <p className="font-semibold text-sm leading-tight">
+                  {person.name}
+                </p>
+              </Link>
               <p className="text-sm text-gray-600">{person.job}</p>
             </div>
           </div>

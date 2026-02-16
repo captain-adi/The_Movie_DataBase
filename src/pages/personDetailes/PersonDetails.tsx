@@ -21,7 +21,7 @@ function PersonDetails() {
               src={
                 data?.profile_path
                   ? `https://image.tmdb.org/t/p/w500${data.profile_path}`
-                  : ""
+                  : "https://placehold.net/400x600.png"
               }
               alt={data?.name || "Person"}
               className="w-full rounded-lg object-cover aspect-2/3"
@@ -39,6 +39,11 @@ function PersonDetails() {
               <p className="text-sm leading-relaxed text-gray-800 max-w-225">
                 {data?.biography}
               </p>
+              {!data?.biography && (
+                <p className="text-sm leading-relaxed text-gray-800 max-w-225">
+                  No biography available.
+                </p>
+              )}
             </section>
           </div>
         </div>

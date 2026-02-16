@@ -2,6 +2,7 @@ import { useTheme } from "@/context/theme/ThemeContext";
 import type { IScroller } from "@/types/types";
 import getTmdbImage from "@/utils/getTmdbImages";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
 function ResultCard({ data }: { data: IScroller | undefined }) {
   const { theme } = useTheme();
@@ -23,7 +24,9 @@ function ResultCard({ data }: { data: IScroller | undefined }) {
       />
 
       <div className="flex flex-col gap-1.5">
-        <h2 className="text-[22px] font-semibold ">{data?.title}</h2>
+        <Link to={`/details/${data?.media_type}/${data?.id}`}>
+          <h2 className="text-[22px] font-semibold ">{data?.title}</h2>
+        </Link>
         {data?.release_date && (
           <p className="text-[13px] text-gray-500">
             {getFormatDate(data.release_date)}{" "}

@@ -11,11 +11,6 @@ function Works({
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Acting</h2>
-
-        <div className="flex gap-4 text-sm">
-          <button className="flex items-center gap-1">All ▾</button>
-          <button className="flex items-center gap-1">Department ▾</button>
-        </div>
       </div>
 
       {/* Credits Box */}

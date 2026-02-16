@@ -1,4 +1,5 @@
 import type { ICreditsResponse } from "@/pages/detailedpage/components/contentWrapper/components/seriesCast/type";
+import { Link } from "react-router-dom";
 
 function CastColumn({ data }: { data: ICreditsResponse["cast"] }) {
   return (
@@ -20,9 +21,11 @@ function CastColumn({ data }: { data: ICreditsResponse["cast"] }) {
             />
 
             <div>
-              <p className="font-semibold text-sm leading-tight">
-                {castMember.name}
-              </p>
+              <Link to={`/person/${castMember.id}`}>
+                <p className="font-semibold text-sm leading-tight">
+                  {castMember.name}
+                </p>
+              </Link>
               <p className="text-sm text-gray-600">{castMember.character}</p>
             </div>
           </div>
